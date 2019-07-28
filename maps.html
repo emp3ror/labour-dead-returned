@@ -1,0 +1,65 @@
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="vendor/jquery-jvectormap-2.0.3.css" type="text/css" media="screen" />
+
+    <script src="vendor/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="vendor/jquery-jvectormap-world-mill-en.js"></script>
+    <style>
+        .jvectormap-region {
+            stroke: #c4cbef;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="world-map" style="width: 1000px; height: 1000px" style="background: #f2f2f2;"></div>
+    <script>
+        var gdpData = {
+            "CZ": 1,
+            "FI": 1,
+            "IQ": 1,
+            "JP": 1,
+            "PT": 1,
+            "ZA": 1,
+            "OM": 5,
+            "KW": 9,
+            "JO": 10,
+            "KR": 16,
+            "TR": 1,
+            "BH": 7,
+            "MY": 255,
+            "AE": 63,
+
+        };
+        $(function () {
+            $('#world-map').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: "#EFF7FF",
+                regionStyle: {
+                    initial: {
+                        fill: "white", "fill-opacity": 1, stroke: "red",
+                        "stroke-width": 0.2, "stroke-opacity": 1,
+                    }
+                },
+                series: {
+                    regions: [{
+                        values: gdpData,
+                        scale: ['#C8EEFF', '#FF0000'],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                onRegionTipShow: function (e, el, code) {
+                    el.html(el.html() + ' (DIED - ' + gdpData[code] + ')');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
